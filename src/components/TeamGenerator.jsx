@@ -30,7 +30,27 @@ const TeamGenerator = ({ players }) => {
         setIsLoading(true);
         const response = await axios.get(`${API_URL}/teams/latest`);
         if (response.data && response.data.length > 0) {
-          setTeams(response.data);
+          // Sort by createdAt descending to be sure
+          const sortedTeams = response.data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+
+          // Get the timestamp of the absolute latest team
+          const latestTimestampMs = new Date(
+            sortedTeams[0].createdAt
+          ).getTime();
+
+          // Define a small tolerance window (e.g., 2 seconds = 2000 milliseconds)
+          const toleranceMs = 2000;
+
+          // Filter teams whose timestamp is within the tolerance window of the latest
+          const lastGeneratedBatch = sortedTeams.filter((team) => {
+            const teamTimestampMs = new Date(team.createdAt).getTime();
+            // Check if the difference is within the tolerance
+            return Math.abs(latestTimestampMs - teamTimestampMs) < toleranceMs;
+          });
+
+          setTeams(lastGeneratedBatch);
         }
       } catch (error) {
         console.error("Error fetching last teams:", error);
@@ -66,7 +86,7 @@ const TeamGenerator = ({ players }) => {
       console.log("Server response:", response.data);
 
       // Update teams state with only the newly generated teams
-      setTeams(generatedTeams);
+      setTeams(teamsToSave);
 
       toast.success("টিমগুলো সফলভাবে সংরক্ষণ করা হয়েছে!");
     } catch (error) {
