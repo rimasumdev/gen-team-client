@@ -239,9 +239,11 @@ const PlayerList = ({
           }
         />
       ) : (
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
           {/* Header Section */}
-          <div className="p-4 sm:p-6 border-b border-gray-100">
+          <div className="p-4 sm:p-6 border-b border-gray-200">
+            {" "}
+            {/* Adjusted border color */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <div className="flex items-center gap-3 min-w-0">
                 <div className="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-lg shrink-0">
@@ -261,7 +263,7 @@ const PlayerList = ({
                 {showTeamGeneratorLink && (
                   <Link
                     to="/team-generator"
-                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm"
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
                   >
                     <FaUsers className="w-4 h-4" />
                     <span>টিম তৈরি করুন</span>
@@ -269,14 +271,13 @@ const PlayerList = ({
                 )}
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-green-500 to-green-600 text-white text-sm font-medium rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-sm"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-green-500 to-green-600 text-white text-sm font-medium rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
                 >
                   <FaUserPlus className="w-4 h-4" />
                   <span>নতুন</span>
                 </button>
               </div>
             </div>
-
             {/* Warning Messages */}
             {players.length < 4 && (
               <div className="mt-4 flex items-center gap-2 p-3 bg-blue-50 text-blue-700 rounded-lg text-sm">
@@ -289,7 +290,6 @@ const PlayerList = ({
                 </p>
               </div>
             )}
-
             {players.length >= 4 && captains.length < 2 && (
               <div className="mt-4 flex items-center gap-2 p-3 bg-yellow-50 text-yellow-700 rounded-lg text-sm">
                 <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-yellow-100 rounded-lg">
@@ -306,7 +306,8 @@ const PlayerList = ({
           {/* Table Section */}
           <div className="overflow-x-auto">
             <div className="inline-block min-w-full align-middle">
-              <table className="min-w-full divide-y divide-gray-200 border-t border-gray-200">
+              {/* Removed top border from table as container now has border */}
+              <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
                     <th
@@ -344,8 +345,9 @@ const PlayerList = ({
                         </span>
                       </td>
                       <td className="px-3 py-3 text-sm">
+                        {/* Standardized Badge Padding */}
                         <span
-                          className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${getPositionColor(
+                          className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${getPositionColor(
                             player.position
                           )}`}
                         >

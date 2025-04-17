@@ -308,9 +308,9 @@ const TeamGenerator = ({ players }) => {
             </div>
             <button
               onClick={generateTeams}
-              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-lg hover:from-blue-600 hover:to-blue-700 transition duration-300 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg flex items-center justify-center gap-2 font-medium"
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
             >
-              <FaRandom className="text-white" />
+              <FaRandom className="w-4 h-4" />
               টিম তৈরি করুন
             </button>
           </div>
@@ -329,9 +329,9 @@ const TeamGenerator = ({ players }) => {
                 </h2>
                 <Link
                   to="/teams"
-                  className="bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 px-4 rounded-lg hover:from-blue-600 hover:to-blue-700 transition duration-300 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg flex items-center justify-center gap-2 font-medium"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
                 >
-                  <FaChevronRight />
+                  <FaChevronRight className="w-4 h-4" />
                   তৈরি করা টিমসমূহ দেখুন
                 </Link>
               </div>
