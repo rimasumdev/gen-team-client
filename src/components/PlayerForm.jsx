@@ -136,9 +136,9 @@ const PlayerForm = ({ onAddPlayer, setIsModalOpen, players, initialData }) => {
       </div>
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+        className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
       >
-        যোগ করুন
+        {initialData ? "আপডেট করুন" : "যোগ করুন"} {/* Dynamic button text */}
       </button>
     </form>
   );

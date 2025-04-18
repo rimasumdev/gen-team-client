@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import EmptyState from "./EmptyState";
 import Modal from "./Modal";
-import { getApiUrl } from "../utils/api";
+import { getApiUrl, convertToBengaliNumber } from "../utils/api";
 
 const API_URL = getApiUrl();
 
@@ -266,7 +266,7 @@ const TeamGenerator = ({ players }) => {
                   টিম তৈরি করুন
                 </h2>
                 <p className="text-sm text-gray-500">
-                  মোট {players.length} জন খেলোয়াড়
+                  মোট {convertToBengaliNumber(players.length)} জন খেলোয়াড়
                 </p>
               </div>
             </div>
@@ -283,13 +283,16 @@ const TeamGenerator = ({ players }) => {
             <div>
               <label className="block text-gray-700 mb-2">টিমের সংখ্যা</label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 min="2"
                 max={Math.min(Math.floor(players.length / 2), 10)}
-                value={numberOfTeams}
+                value={convertToBengaliNumber(numberOfTeams)}
                 onChange={(e) => {
-                  const value = parseInt(e.target.value);
+                  const value = parseInt(e.target.value.replace(/[^0-9]/g, ""));
                   if (
+                    !isNaN(value) &&
                     value >= 2 &&
                     value <= Math.min(Math.floor(players.length / 2), 10)
                   ) {
@@ -297,6 +300,7 @@ const TeamGenerator = ({ players }) => {
                   }
                 }}
                 className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="টিমের সংখ্যা লিখুন"
               />
               <p className="text-sm text-gray-500 mt-1">
                 সর্বনিম্ন ২টি এবং সর্বোচ্চ{" "}
@@ -374,7 +378,7 @@ const TeamGenerator = ({ players }) => {
                           <tr className="bg-gradient-to-r from-blue-50 to-blue-100">
                             <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
                               <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 text-xs font-medium text-blue-700 sm:h-6 sm:w-6">
-                                ১
+                                {convertToBengaliNumber(1)}
                               </span>
                             </td>
                             <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
@@ -403,7 +407,7 @@ const TeamGenerator = ({ players }) => {
                               <tr key={player._id}>
                                 <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
                                   <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-xs font-medium text-gray-700 sm:h-6 sm:w-6">
-                                    {playerIndex + 2}
+                                    {convertToBengaliNumber(playerIndex + 2)}
                                   </span>
                                 </td>
                                 <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">

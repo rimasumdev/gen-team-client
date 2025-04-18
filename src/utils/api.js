@@ -9,3 +9,12 @@ export const getApiUrl = () => {
     import.meta.env.VITE_PRODUCTION_API_URL || import.meta.env.VITE_API_URL
   );
 };
+
+export const convertToBengaliNumber = (number) => {
+  const bengaliNumerals = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+  return number
+    .toString()
+    .split("")
+    .map((digit) => bengaliNumerals[parseInt(digit)])
+    .join("");
+};

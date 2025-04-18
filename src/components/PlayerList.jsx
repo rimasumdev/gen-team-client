@@ -12,6 +12,7 @@ import Modal from "./Modal";
 import PlayerForm from "./PlayerForm";
 import EmptyState from "./EmptyState";
 import { toast } from "react-toastify";
+import { convertToBengaliNumber } from "../utils/api";
 
 const PlayerList = ({
   players,
@@ -254,7 +255,7 @@ const PlayerList = ({
                     খেলোয়াড়দের তালিকা
                   </h2>
                   <p className="text-sm text-gray-500">
-                    মোট {players.length} জন খেলোয়াড়
+                    মোট {convertToBengaliNumber(players.length)} জন খেলোয়াড়
                   </p>
                 </div>
               </div>
@@ -286,7 +287,8 @@ const PlayerList = ({
                 </div>
                 <p>
                   টিম তৈরি করতে কমপক্ষে ৪ জন খেলোয়াড় প্রয়োজন। আরও{" "}
-                  {4 - players.length} জন খেলোয়াড় যোগ করুন।
+                  {convertToBengaliNumber(4 - players.length)} জন খেলোয়াড় যোগ
+                  করুন।
                 </p>
               </div>
             )}
@@ -297,7 +299,8 @@ const PlayerList = ({
                 </div>
                 <p>
                   টিম তৈরি করতে কমপক্ষে ২ জন ক্যাপ্টেন প্রয়োজন। আরও{" "}
-                  {2 - captains.length} জন ক্যাপ্টেন নির্বাচন করুন।
+                  {convertToBengaliNumber(2 - captains.length)} জন ক্যাপ্টেন
+                  নির্বাচন করুন।
                 </p>
               </div>
             )}

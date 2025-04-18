@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import Modal from "../components/Modal";
 import { getServerUrl } from "../utils/api";
 import { Link } from "react-router-dom";
+import { convertToBengaliNumber } from "../utils/api";
 
 const API_URL = `${getServerUrl()}/api`;
 
@@ -52,8 +53,10 @@ const TeamListPage = () => {
         url += `?date=${selectedDate}`;
       }
       const response = await axios.get(url);
+      console.log("API Response:", response.data); // Log the API response
       setTeams(response.data);
     } catch (error) {
+      console.error("Error fetching teams:", error);
       toast.error("টিমের তথ্য লোড করতে সমস্যা হয়েছে!");
       console.error("Error fetching teams:", error);
     } finally {
@@ -104,16 +107,6 @@ const TeamListPage = () => {
     return colors[position] || "text-gray-500";
   };
 
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString("bn-BD", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-    });
-  };
-
   const groupTeamsByDateTime = (teams) => {
     const groups = teams.reduce((acc, team) => {
       const date = new Date(team.createdAt);
@@ -128,9 +121,11 @@ const TeamListPage = () => {
       const period = hour >= 12 ? "অপরাহ্ন" : "পূর্বাহ্ন";
       const hour12 = hour % 12 || 12;
 
-      const timeKey = `${hour12}:${minute
-        .toString()
-        .padStart(2, "0")} ${period}`;
+      const timeKey = `${convertToBengaliNumber(
+        hour12
+      )}:${convertToBengaliNumber(
+        minute.toString().padStart(2, "0")
+      )} ${period}`;
 
       if (!acc[dateKey]) {
         acc[dateKey] = {};
@@ -220,8 +215,9 @@ const TeamListPage = () => {
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
+                    {/* Standardized Badge Padding */}
                     <span
-                      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium shadow-sm ${getPositionColor(
+                      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium shadow-sm ${getPositionColor(
                         selectedTeam.captain.position
                       )} bg-opacity-10`}
                     >
@@ -229,7 +225,8 @@ const TeamListPage = () => {
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
-                    <span className="inline-flex items-center rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-700">
+                    {/* Standardized Badge Padding */}
+                    <span className="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-1 text-xs font-medium text-yellow-700">
                       ক্যাপ্টেন
                     </span>
                   </td>
@@ -240,7 +237,7 @@ const TeamListPage = () => {
                     <tr key={player._id}>
                       <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
                         <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-xs font-medium text-gray-700 sm:h-6 sm:w-6">
-                          {playerIndex + 2}
+                          {convertToBengaliNumber(playerIndex + 2)}
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
@@ -249,8 +246,9 @@ const TeamListPage = () => {
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
+                        {/* Standardized Badge Padding */}
                         <span
-                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium shadow-sm ${getPositionColor(
+                          className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium shadow-sm ${getPositionColor(
                             player.position
                           )} bg-opacity-10`}
                         >
@@ -258,7 +256,8 @@ const TeamListPage = () => {
                         </span>
                       </td>
                       <td className="whitespace-nowrap px-2 py-2 sm:px-3 sm:py-2.5">
-                        <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">
+                        {/* Standardized Badge Padding */}
+                        <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700">
                           খেলোয়াড়
                         </span>
                       </td>
@@ -337,7 +336,8 @@ const TeamListPage = () => {
         </div>
       </Modal>
 
-      <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+      {/* Updated Main Container Style */}
+      <div className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-lg shrink-0">
@@ -349,7 +349,7 @@ const TeamListPage = () => {
               </h2>
               <p className="text-sm text-gray-500 flex items-center gap-2">
                 <FaUsers className="text-blue-400" />
-                মোট {teams.length} টি টিম
+                মোট {convertToBengaliNumber(teams.length)} টি টিম
               </p>
             </div>
           </div>
@@ -407,9 +407,11 @@ const TeamListPage = () => {
                   <div className="flex items-center gap-2 sm:gap-4">
                     <span className="text-xs sm:text-sm text-gray-500">
                       মোট{" "}
-                      {timeGroups.reduce(
-                        (total, [_, teams]) => total + teams.length,
-                        0
+                      {convertToBengaliNumber(
+                        timeGroups.reduce(
+                          (total, [, teams]) => total + teams.length,
+                          0
+                        )
                       )}
                       টি টিম
                     </span>
@@ -449,9 +451,10 @@ const TeamListPage = () => {
                             <div
                               key={team._id}
                               onClick={() => setSelectedTeam(team)}
-                              className="bg-gradient-to-br from-white to-blue-50 p-2 sm:p-6 rounded-xl border border-blue-100 hover:shadow-xl hover:border-blue-200 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+                              className="bg-gradient-to-br from-white to-gray-50 p-4 sm:p-6 rounded-xl border border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
                             >
-                              <div className="flex items-center justify-between mb-4 pb-3 border-b border-blue-100">
+                              {/* Adjusted border color */}
+                              <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-200">
                                 <div className="flex items-center gap-3">
                                   <div className="w-7 h-7 flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg shadow-sm">
                                     <FaUsers className="text-blue-600 w-5 h-5" />
@@ -461,9 +464,13 @@ const TeamListPage = () => {
                                   </h3>
                                 </div>
                                 <div className="flex items-center gap-3">
-                                  <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-blue-100 text-blue-700 border border-blue-200 shadow-sm">
-                                    <FaUsers className="w-4 h-4 mr-1.5" />
-                                    {team.players.length} জন
+                                  {/* Standardized Badge Style */}
+                                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 border border-blue-200 shadow-sm">
+                                    <FaUsers className="w-3 h-3 mr-1" />{" "}
+                                    {convertToBengaliNumber(
+                                      team.players.length
+                                    )}{" "}
+                                    জন
                                   </span>
                                   <button
                                     onClick={(e) => {
@@ -497,7 +504,10 @@ const TeamListPage = () => {
                                     খেলোয়াড়:
                                   </span>
                                   <span className="text-blue-600 font-medium">
-                                    {team.players.length - 1} জন
+                                    {convertToBengaliNumber(
+                                      team.players.length - 1
+                                    )}{" "}
+                                    জন
                                   </span>
                                 </div>
                               </div>

@@ -1,8 +1,11 @@
 import { FaChartBar, FaUsers, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import EmptyState from "./EmptyState";
+import { convertToBengaliNumber } from "../utils/api";
 
 const PlayerStats = ({ players }) => {
+  const totalPlayers = players.length;
+  const captainCount = players.filter((player) => player.isCaptain).length;
   const captains = players?.filter((player) => player.isCaptain) || [];
   const showTeamGeneratorLink = players?.length >= 4 && captains.length >= 2;
 
@@ -24,9 +27,6 @@ const PlayerStats = ({ players }) => {
     acc[player.position] = (acc[player.position] || 0) + 1;
     return acc;
   }, {});
-
-  const totalPlayers = players.length;
-  const captainCount = players.filter((player) => player.isCaptain).length;
 
   const positions = ["Striker", "Midfielder", "Defender", "Goalkeeper"];
 
@@ -84,7 +84,7 @@ const PlayerStats = ({ players }) => {
                   খেলোয়াড়দের পরিসংখ্যান
                 </h2>
                 <p className="text-sm text-gray-500">
-                  মোট {players.length} জন খেলোয়াড়
+                  মোট {convertToBengaliNumber(players.length)} জন খেলোয়াড়
                 </p>
               </div>
             </div>
@@ -128,7 +128,7 @@ const PlayerStats = ({ players }) => {
             <div>
               <p className="text-sm font-medium text-blue-600">মোট খেলোয়াড়</p>
               <h3 className="text-2xl font-bold text-blue-700">
-                {totalPlayers} জন
+                {convertToBengaliNumber(totalPlayers)} জন
               </h3>
             </div>
           </div>
@@ -142,7 +142,7 @@ const PlayerStats = ({ players }) => {
             <div>
               <p className="text-sm font-medium text-yellow-600">ক্যাপ্টেন</p>
               <h3 className="text-2xl font-bold text-yellow-700">
-                {captainCount} জন
+                {convertToBengaliNumber(captainCount)} জন
               </h3>
             </div>
           </div>
@@ -170,10 +170,12 @@ const PlayerStats = ({ players }) => {
                       >
                         {position}
                       </span>
-                      <span className="text-sm text-gray-500">{count} জন</span>
+                      <span className="text-sm text-gray-500">
+                        {convertToBengaliNumber(count)} জন
+                      </span>
                     </div>
                     <span className="text-sm font-medium text-gray-700">
-                      {percentage.toFixed(1)}%
+                      {convertToBengaliNumber(percentage.toFixed(1))}%
                     </span>
                   </div>
                   <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
