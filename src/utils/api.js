@@ -15,6 +15,11 @@ export const convertToBengaliNumber = (number) => {
   return number
     .toString()
     .split("")
-    .map((digit) => bengaliNumerals[parseInt(digit)])
+    .map((digit) => {
+      if (digit === ".") {
+        return ".";
+      }
+      return bengaliNumerals[parseInt(digit)];
+    })
     .join("");
 };

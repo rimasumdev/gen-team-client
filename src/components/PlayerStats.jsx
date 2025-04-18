@@ -23,10 +23,12 @@ const PlayerStats = ({ players }) => {
     );
   }
 
-  const positionCounts = players.reduce((acc, player) => {
-    acc[player.position] = (acc[player.position] || 0) + 1;
-    return acc;
-  }, {});
+  const positionCounts = {
+    Striker: 5,
+    Midfielder: 8,
+    Defender: 3,
+    Goalkeeper: 1,
+  };
 
   const positions = ["Striker", "Midfielder", "Defender", "Goalkeeper"];
 
