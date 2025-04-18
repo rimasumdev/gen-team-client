@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
-import PlayerStats from "../components/PlayerStats";
+import Dashboard from "../components/Dashboard";
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -24,7 +24,7 @@ const StatsPage = ({ players }) => {
       transition={pageTransition}
       className="py-4"
     >
-      <PlayerStats players={players} />
+      <Dashboard players={players} />
     </motion.div>
   );
 };

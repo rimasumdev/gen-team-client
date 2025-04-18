@@ -109,7 +109,7 @@ function App() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 pb-10">
       <ToastContainer />
       <Navbar />
       <Onboarding />
@@ -123,7 +123,7 @@ function App() {
                 element={<TeamGeneratorPage players={players} />}
               />
               <Route
-                path="/stats"
+                path="/players"
                 element={
                   <PlayerListPage
                     players={players}

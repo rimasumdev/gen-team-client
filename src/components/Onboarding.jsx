@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaArrowRight, FaTimes, FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Onboarding = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -75,8 +76,13 @@ const Onboarding = () => {
             <div>
               <h4 className="font-medium text-gray-900">টিম তৈরি করুন</h4>
               <p className="text-sm text-gray-500">
-                টিমের সংখ্যা নির্ধারণ করে অটোমেটিক টিম তৈরি করুন
+                টিমের সংখ্যা নির্ধারণ করে অটোমেটিক টিম তৈরি করুন।
               </p>
+              <Link to="/team-generator">
+                <p className="text-sm text-blue-500 underline">
+                  টিম তৈরি করতে যান
+                </p>
+              </Link>
             </div>
           </div>
         </div>

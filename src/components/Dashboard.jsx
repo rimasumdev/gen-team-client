@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import EmptyState from "./EmptyState";
 import { convertToBengaliNumber } from "../utils/api";
 
-const PlayerStats = ({ players }) => {
+const Dashboard = ({ players }) => {
   const totalPlayers = players.length;
   const captainCount = players.filter((player) => player.isCaptain).length;
   const captains = players?.filter((player) => player.isCaptain) || [];
@@ -94,11 +94,11 @@ const PlayerStats = ({ players }) => {
             <div className="flex items-center gap-2 sm:ml-auto w-full sm:w-auto">
               {showTeamGeneratorLink && (
                 <Link
-                  to="/team-generator"
+                  to="/players"
                   className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
                 >
                   <FaUsers className="w-4 h-4" />
-                  <span>টিম তৈরি করুন</span>
+                  <span>খেলোয়াড় যোগ করুন</span>
                 </Link>
               )}
             </div>
@@ -265,4 +265,4 @@ const PlayerStats = ({ players }) => {
   );
 };
 
-export default PlayerStats;
+export default Dashboard;
