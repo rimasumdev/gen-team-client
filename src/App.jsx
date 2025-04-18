@@ -112,7 +112,7 @@ function App() {
     <div className="min-h-screen bg-gray-100 pb-10">
       <ToastContainer />
       <Navbar />
-      <Onboarding />
+      {/* <Onboarding /> */}
       <div className="pt-16 md:pt-20 pb-6 px-4">
         <div className="max-w-6xl mx-auto">
           <AnimatePresence mode="wait">

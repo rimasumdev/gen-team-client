@@ -6,9 +6,14 @@ import {
   FaChartBar,
   FaList,
   FaUserCircle,
+  FaCog,
+  FaSignOutAlt,
 } from "react-icons/fa";
+import { GrHelpBook } from "react-icons/gr";
 import { MdDashboard } from "react-icons/md";
 import { useState, useEffect } from "react";
+import Modal from "./Modal";
+import Onboarding from "./Onboarding";
 
 const NavLink = ({ to, icon, text, isActive }) => (
   <Link
@@ -30,6 +35,7 @@ const Navbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,12 +56,6 @@ const Navbar = () => {
     { to: "/team-generator", icon: <FaUsers />, text: "টিম তৈরি" },
     { to: "/teams", icon: <FaList />, text: "টিমসমূহ" },
   ];
-  // const mobileMenuItems = [
-  //   { to: "/", icon: <MdDashboard />, text: "ড্যাশবোর্ড" },
-  //   { to: "/players", icon: <FaChartBar />, text: "তালিকা" },
-  //   { to: "/team-generator", icon: <FaUsers />, text: "টিম তৈরি" },
-  //   { to: "/teams", icon: <FaList />, text: "টিমসমূহ" },
-  // ];
 
   return (
     <>
@@ -89,17 +89,55 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Mobile Menu Toggle */}
-            {/* <FaUserCircle size={40} /> */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden rounded-lg  hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-              aria-expanded={isMenuOpen}
-              aria-label="Toggle menu"
-            >
-              <FaUserCircle size={40} />
-              {/* {isMenuOpen ? <FaTimes size={20} /> : <FaUserCircle size={40} />} */}
-            </button>
+            {/* Profile Menu */}
+            <div className="relative">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="flex items-center gap-2 p-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                aria-expanded={isMenuOpen}
+                aria-label="Toggle menu"
+              >
+                <FaUserCircle className="w-8 h-8 text-blue-500" />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50">
+                  <button
+                    onClick={() => {
+                      setShowOnboarding(true);
+                      setIsMenuOpen(false);
+                    }}
+                    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                  >
+                    <GrHelpBook className="w-4 h-4" />
+                    <span>অনবোর্ডিং</span>
+                  </button>
+                  <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">
+                    <FaCog className="w-4 h-4" />
+                    <span>সেটিংস</span>
+                  </button>
+                  <button className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                    <FaSignOutAlt className="w-4 h-4" />
+                    <span>লগআউট</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Onboarding Modal */}
+              <Modal
+                isOpen={showOnboarding}
+                onClose={() => setShowOnboarding(false)}
+                title={
+                  <div className="flex items-center gap-2">
+                    <GrHelpBook className="text-blue-500" />
+                    <span>অনবোর্ডিং</span>
+                  </div>
+                }
+              >
+                <Onboarding />
+              </Modal>
+            </div>
           </div>
         </div>
       </nav>
