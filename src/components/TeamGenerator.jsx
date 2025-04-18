@@ -12,13 +12,14 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import EmptyState from "./EmptyState";
 import Modal from "./Modal";
-import { getApiUrl, convertToBengaliNumber } from "../utils/api";
+import GenerateTeamModal from "./GenerateTeamModal";
+import { getApiUrl } from "../utils/api";
 
 const API_URL = getApiUrl();
 
 const TeamGenerator = ({ players }) => {
   const navigate = useNavigate();
-  const [numberOfTeams, setNumberOfTeams] = useState(2);
+  const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [teams, setTeams] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -124,7 +125,7 @@ const TeamGenerator = ({ players }) => {
     );
   }
 
-  const generateTeams = () => {
+  const generateTeams = (numberOfTeams) => {
     try {
       console.log("Generating teams with players:", players);
 
@@ -140,6 +141,7 @@ const TeamGenerator = ({ players }) => {
       if (captains.length < numberOfTeams) {
         console.log("Not enough captains");
         setIsConfirmModalOpen(true);
+        setIsGenerateModalOpen(false);
         return;
       }
 
@@ -219,6 +221,13 @@ const TeamGenerator = ({ players }) => {
 
   return (
     <>
+      <GenerateTeamModal
+        isOpen={isGenerateModalOpen}
+        onClose={() => setIsGenerateModalOpen(false)}
+        players={players}
+        onGenerateTeams={generateTeams}
+      />
+
       <Modal
         isOpen={isConfirmModalOpen}
         onClose={() => setIsConfirmModalOpen(false)}
@@ -256,7 +265,7 @@ const TeamGenerator = ({ players }) => {
 
       <div className="space-y-6">
         <div className="bg-gradient-to-br from-white to-gray-50 p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-lg shrink-0">
                 <FaUserAlt className="w-5 h-5 text-blue-500" />
@@ -270,86 +279,12 @@ const TeamGenerator = ({ players }) => {
                 </p>
               </div>
             </div>
-            {/* <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center gap-2">
-              <FaUsers className="text-blue-500" />
-              টিম তৈরি করুন
-            </h2>
-            <p className="text-sm text-gray-500">
-              মোট {players.length} জন খেলোয়াড়
-            </p> */}
-          </div>
-
-          <div className="space-y-4">
-            <div>
-              <label className="block text-gray-700 mb-2">টিমের সংখ্যা</label>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    const minTeams = 2;
-                    if (numberOfTeams > minTeams) {
-                      setNumberOfTeams(numberOfTeams - 1);
-                    }
-                  }}
-                  className="p-2 text-gray-700 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
-                  disabled={numberOfTeams <= 2}
-                >
-                  -
-                </button>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  min="2"
-                  max={Math.min(Math.floor(players.length / 2), 10)}
-                  value={convertToBengaliNumber(numberOfTeams)}
-                  onChange={(e) => {
-                    const value = parseInt(
-                      e.target.value.replace(/[^0-9]/g, "")
-                    );
-                    if (
-                      !isNaN(value) &&
-                      value >= 2 &&
-                      value <= Math.min(Math.floor(players.length / 2), 10)
-                    ) {
-                      setNumberOfTeams(value);
-                    }
-                  }}
-                  className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
-                  placeholder="টিমের সংখ্যা লিখুন"
-                />
-                <button
-                  onClick={() => {
-                    const maxTeams = Math.min(
-                      Math.floor(players.length / 2),
-                      10
-                    );
-                    if (numberOfTeams < maxTeams) {
-                      setNumberOfTeams(numberOfTeams + 1);
-                    }
-                  }}
-                  className="p-2 text-gray-700 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
-                  disabled={
-                    numberOfTeams >=
-                    Math.min(Math.floor(players.length / 2), 10)
-                  }
-                >
-                  +
-                </button>
-              </div>
-              <p className="text-sm text-gray-500 mt-1">
-                সর্বনিম্ন ২টি এবং সর্বোচ্চ{" "}
-                {convertToBengaliNumber(
-                  Math.min(Math.floor(players.length / 2), 10)
-                )}
-                টি টিম তৈরি করা যাবে
-              </p>
-            </div>
             <button
-              onClick={generateTeams}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
+              onClick={() => setIsGenerateModalOpen(true)}
+              className="inline-flex w-full sm:w-fit items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
             >
               <FaRandom className="w-4 h-4" />
-              টিম তৈরি করুন
+              তৈরি করুন
             </button>
           </div>
         </div>
@@ -363,14 +298,14 @@ const TeamGenerator = ({ players }) => {
             <div className="space-y-4">
               <div className="flex items-center justify-between gap-2 bg-white p-4 rounded-lg shadow-md">
                 <h2 className="text-lg font-bold text-gray-800 truncate">
-                  টিমসমূহ
+                  বর্তমান টিমসমূহ
                 </h2>
                 <Link
                   to="/teams"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-medium rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm transform hover:-translate-y-0.5"
                 >
                   <FaChevronRight className="w-4 h-4" />
-                  তৈরি করা টিমসমূহ দেখুন
+                  পূর্বের টিমসমূহ
                 </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pb-6">
@@ -382,7 +317,7 @@ const TeamGenerator = ({ players }) => {
                     <div className="flex items-center justify-between mb-6 pb-3 border-b border-gray-200">
                       <div className="flex items-center gap-2">
                         <FaUsers className="text-blue-500 w-6 h-6" />
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-800">
+                        <h3 className="text-xl font-bold text-gray-800">
                           {team.captain.teamName || team.captain.name}
                         </h3>
                       </div>
