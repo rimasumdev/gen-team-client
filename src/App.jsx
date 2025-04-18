@@ -117,8 +117,13 @@ function App() {
         <div className="max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<StatsPage players={players} />} />
               <Route
-                path="/"
+                path="/team-generator"
+                element={<TeamGeneratorPage players={players} />}
+              />
+              <Route
+                path="/stats"
                 element={
                   <PlayerListPage
                     players={players}
@@ -130,11 +135,6 @@ function App() {
                   />
                 }
               />
-              <Route
-                path="/team-generator"
-                element={<TeamGeneratorPage players={players} />}
-              />
-              <Route path="/stats" element={<StatsPage players={players} />} />
               <Route path="/teams" element={<TeamListPage />} />
             </Routes>
           </AnimatePresence>

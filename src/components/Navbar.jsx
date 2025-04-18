@@ -1,11 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import {
-  FaUserAlt,
-  FaUsers,
-  FaBars,
-  FaTimes,
-  FaChartBar,
-} from "react-icons/fa";
+import { FaUsers, FaBars, FaTimes, FaChartBar, FaList } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
 import { useState, useEffect } from "react";
 
 const NavLink = ({ to, icon, text, isActive }) => (
@@ -43,10 +38,10 @@ const Navbar = () => {
   }, [location.pathname]);
 
   const menuItems = [
-    { to: "/", icon: <FaUserAlt />, text: "খেলোয়াড়দের তালিকা" },
+    { to: "/", icon: <MdDashboard />, text: "ড্যাশবোর্ড" },
+    { to: "/stats", icon: <FaChartBar />, text: "খেলোয়াড়দের তালিকা" },
     { to: "/team-generator", icon: <FaUsers />, text: "টিম তৈরি করুন" },
-    { to: "/teams", icon: <FaUsers />, text: "তৈরি করা টিমসমূহ" },
-    { to: "/stats", icon: <FaChartBar />, text: "পরিসংখ্যান" },
+    { to: "/teams", icon: <FaList />, text: "তৈরি করা টিমসমূহ" },
   ];
 
   return (
