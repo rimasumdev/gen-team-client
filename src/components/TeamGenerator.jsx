@@ -282,26 +282,60 @@ const TeamGenerator = ({ players }) => {
           <div className="space-y-4">
             <div>
               <label className="block text-gray-700 mb-2">টিমের সংখ্যা</label>
-              <input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                min="2"
-                max={Math.min(Math.floor(players.length / 2), 10)}
-                value={convertToBengaliNumber(numberOfTeams)}
-                onChange={(e) => {
-                  const value = parseInt(e.target.value.replace(/[^0-9]/g, ""));
-                  if (
-                    !isNaN(value) &&
-                    value >= 2 &&
-                    value <= Math.min(Math.floor(players.length / 2), 10)
-                  ) {
-                    setNumberOfTeams(value);
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    const minTeams = 2;
+                    if (numberOfTeams > minTeams) {
+                      setNumberOfTeams(numberOfTeams - 1);
+                    }
+                  }}
+                  className="p-2 text-gray-700 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
+                  disabled={numberOfTeams <= 2}
+                >
+                  -
+                </button>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  min="2"
+                  max={Math.min(Math.floor(players.length / 2), 10)}
+                  value={convertToBengaliNumber(numberOfTeams)}
+                  onChange={(e) => {
+                    const value = parseInt(
+                      e.target.value.replace(/[^0-9]/g, "")
+                    );
+                    if (
+                      !isNaN(value) &&
+                      value >= 2 &&
+                      value <= Math.min(Math.floor(players.length / 2), 10)
+                    ) {
+                      setNumberOfTeams(value);
+                    }
+                  }}
+                  className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
+                  placeholder="টিমের সংখ্যা লিখুন"
+                />
+                <button
+                  onClick={() => {
+                    const maxTeams = Math.min(
+                      Math.floor(players.length / 2),
+                      10
+                    );
+                    if (numberOfTeams < maxTeams) {
+                      setNumberOfTeams(numberOfTeams + 1);
+                    }
+                  }}
+                  className="p-2 text-gray-700 bg-gray-100 rounded hover:bg-gray-200 transition-colors"
+                  disabled={
+                    numberOfTeams >=
+                    Math.min(Math.floor(players.length / 2), 10)
                   }
-                }}
-                className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="টিমের সংখ্যা লিখুন"
-              />
+                >
+                  +
+                </button>
+              </div>
               <p className="text-sm text-gray-500 mt-1">
                 সর্বনিম্ন ২টি এবং সর্বোচ্চ{" "}
                 {convertToBengaliNumber(
