@@ -46,16 +46,16 @@ const Navbar = () => {
 
   const menuItems = [
     { to: "/", icon: <MdDashboard />, text: "ড্যাশবোর্ড" },
-    { to: "/players", icon: <FaChartBar />, text: "খেলোয়াড়দের তালিকা" },
-    { to: "/team-generator", icon: <FaUsers />, text: "টিম তৈরি করুন" },
-    { to: "/teams", icon: <FaList />, text: "তৈরি করা টিমসমূহ" },
-  ];
-  const mobileMenuItems = [
-    { to: "/", icon: <MdDashboard />, text: "ড্যাশবোর্ড" },
     { to: "/players", icon: <FaChartBar />, text: "তালিকা" },
     { to: "/team-generator", icon: <FaUsers />, text: "টিম তৈরি" },
     { to: "/teams", icon: <FaList />, text: "টিমসমূহ" },
   ];
+  // const mobileMenuItems = [
+  //   { to: "/", icon: <MdDashboard />, text: "ড্যাশবোর্ড" },
+  //   { to: "/players", icon: <FaChartBar />, text: "তালিকা" },
+  //   { to: "/team-generator", icon: <FaUsers />, text: "টিম তৈরি" },
+  //   { to: "/teams", icon: <FaList />, text: "টিমসমূহ" },
+  // ];
 
   return (
     <>
@@ -107,7 +107,7 @@ const Navbar = () => {
       {/* Mobile Bottom Navbar */}
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 py-2 h-16 lg:hidden">
         <div className="flex justify-around items-center h-full">
-          {mobileMenuItems.map((item) => (
+          {menuItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}

@@ -272,7 +272,7 @@ const TeamGenerator = ({ players }) => {
               </div>
               <div className="min-w-0">
                 <h2 className="text-lg font-bold text-gray-800 truncate">
-                  টিম তৈরি করুন
+                  টিম তৈরি
                 </h2>
                 <p className="text-sm text-gray-500">
                   মোট {convertToBengaliNumber(players.length)} জন খেলোয়াড়
@@ -298,7 +298,7 @@ const TeamGenerator = ({ players }) => {
             <div className="space-y-4">
               <div className="flex items-center justify-between gap-2 bg-white p-4 rounded-lg shadow-md">
                 <h2 className="text-lg font-bold text-gray-800 truncate">
-                  বর্তমান টিমসমূহ
+                  সর্বশেষ টিমসমূহ
                 </h2>
                 <Link
                   to="/teams"
