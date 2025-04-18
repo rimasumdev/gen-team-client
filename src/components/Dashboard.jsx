@@ -6,6 +6,18 @@ import { convertToBengaliNumber } from "../utils/api";
 const Dashboard = ({ players }) => {
   const totalPlayers = players.length;
   const captainCount = players.filter((player) => player.isCaptain).length;
+  const strikerCount = players.filter(
+    (player) => player.position === "Striker"
+  ).length;
+  const midfielderCount = players.filter(
+    (player) => player.position === "Midfielder"
+  ).length;
+  const defenderCount = players.filter(
+    (player) => player.position === "Defender"
+  ).length;
+  const goalkeeperCount = players.filter(
+    (player) => player.position === "Goalkeeper"
+  ).length;
   const captains = players?.filter((player) => player.isCaptain) || [];
   const showTeamGeneratorLink = players?.length >= 4 && captains.length >= 2;
 
@@ -24,10 +36,10 @@ const Dashboard = ({ players }) => {
   }
 
   const positionCounts = {
-    Striker: 5,
-    Midfielder: 8,
-    Defender: 3,
-    Goalkeeper: 1,
+    Striker: strikerCount,
+    Midfielder: midfielderCount,
+    Defender: defenderCount,
+    Goalkeeper: goalkeeperCount,
   };
 
   const positions = ["Striker", "Midfielder", "Defender", "Goalkeeper"];

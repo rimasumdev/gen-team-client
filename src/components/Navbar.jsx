@@ -67,7 +67,7 @@ const Navbar = () => {
             : "bg-white shadow-sm"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 lg:px-0">
           <div className="flex justify-between items-center h-16">
             <Link
               to="/"

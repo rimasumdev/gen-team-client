@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { FaArrowRight, FaTimes, FaUsers } from "react-icons/fa";
+// import { useState, useEffect } from "react";
+// import { FaArrowRight, FaTimes, FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Onboarding = () => {

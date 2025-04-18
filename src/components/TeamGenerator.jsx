@@ -83,6 +83,7 @@ const TeamGenerator = ({ players }) => {
       }));
 
       console.log("Saving teams to server:", teamsToSave);
+      setIsGenerateModalOpen(false);
       const response = await axios.post(`${API_URL}/teams`, teamsToSave);
       console.log("Server response:", response.data);
 
@@ -103,7 +104,7 @@ const TeamGenerator = ({ players }) => {
         title="কোন খেলোয়াড় যোগ করা হয়নি"
         message="টিম তৈরি করতে প্রথমে খেলোয়াড়দের তালিকায় গিয়ে নতুন খেলোয়াড় যোগ করুন"
         nextStep={{
-          to: "/",
+          to: "/players",
           text: "খেলোয়াড়দের তালিকায় যান",
         }}
       />
@@ -118,7 +119,7 @@ const TeamGenerator = ({ players }) => {
         title="কোন ক্যাপ্টেন নির্বাচন করা হয়নি"
         message="টিম তৈরি করতে প্রথমে কমপক্ষে দুইজন ক্যাপ্টেন নির্বাচন করুন"
         nextStep={{
-          to: "/",
+          to: "/players",
           text: "ক্যাপ্টেন নির্বাচন করতে যান",
         }}
       />
@@ -253,7 +254,7 @@ const TeamGenerator = ({ players }) => {
             <button
               onClick={() => {
                 setIsConfirmModalOpen(false);
-                navigate("/");
+                navigate("/players");
               }}
               className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition-colors"
             >
@@ -329,16 +330,16 @@ const TeamGenerator = ({ players }) => {
                       <table className="min-w-full divide-y divide-gray-100">
                         <thead className="bg-gray-50">
                           <tr>
-                            <th className="w-12 px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sm:px-3 sm:py-2.5">
+                            <th className="w-12 px-2 py-2 text-left text-xs font-bold text-black uppercase tracking-wider sm:px-3 sm:py-2.5">
                               #
                             </th>
-                            <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sm:px-3 sm:py-2.5">
+                            <th className="px-2 py-2 text-left text-xs font-bold text-black uppercase tracking-wider sm:px-3 sm:py-2.5">
                               নাম
                             </th>
-                            <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sm:px-3 sm:py-2.5">
+                            <th className="px-2 py-2 text-left text-xs font-bold text-black uppercase tracking-wider sm:px-3 sm:py-2.5">
                               পজিশন
                             </th>
-                            <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sm:px-3 sm:py-2.5">
+                            <th className="px-2 py-2 text-left text-xs font-bold text-black uppercase tracking-wider sm:px-3 sm:py-2.5">
                               ভূমিকা
                             </th>
                           </tr>
